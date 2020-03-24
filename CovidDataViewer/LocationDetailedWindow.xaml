@@ -1,0 +1,68 @@
+﻿<Window x:Class="CovidDataViewer.LocationDetailedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CovidDataViewer"
+        mc:Ignorable="d"
+        Title="LocationDetailedWindow" Height="1000" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ProvinceName}" FontSize="20"/>
+                <TextBlock Text=", " FontSize="20"/>
+                <TextBlock Text="{Binding CountryName}" FontSize="20"/>                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Total Confirmed: "/>
+                <TextBlock Grid.Row="0" x:Name="TextBlock_TotalConfirmed" Text="{Binding TotalConfirmedForLocation}"/>
+                <TextBlock Text="Bar Scale: "/>
+                <TextBox x:Name="TextBox_BarScale" Text="{Binding BarScale, Mode=TwoWay}"/>
+            </StackPanel>            
+        </StackPanel>
+
+        <ListView Grid.Row="1" x:Name="ListView_DateData" ItemsSource="{Binding DateData}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="800" Height="30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition Height="450"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding DataDateTime}"/>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="10"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" VerticalAlignment="Center" FontSize="10" Text="{Binding ConfirmedCases}" HorizontalAlignment="Left"/>                            
+                            <ProgressBar Grid.Row="0" Grid.Column="1" Height="20" HorizontalAlignment="Stretch" Maximum="{Binding ElementName=TextBox_BarScale, Path=Text}" Value="{Binding ConfirmedCases}" Foreground="Yellow"/>
+                            <TextBlock Grid.Row="1" VerticalAlignment="Center" FontSize="10"  Text="{Binding Deaths}" HorizontalAlignment="Left"/>
+                            <ProgressBar Grid.Row="1" Grid.Column="1" Height="20" HorizontalAlignment="Stretch" Maximum="{Binding ElementName=TextBox_BarScale, Path=Text}" Value="{Binding Deaths}" Foreground="Red"/>
+                            <TextBlock Grid.Row="2" VerticalAlignment="Center" FontSize="10"  Text="{Binding Recovered}" HorizontalAlignment="Left"/>
+                            <ProgressBar Grid.Row="2" Grid.Column="1" Height="20" HorizontalAlignment="Stretch" Maximum="{Binding ElementName=TextBox_BarScale, Path=Text}" Value="{Binding Recovered}" Foreground="Green"/>
+                        </Grid>
+
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        
+    </Grid>
+</Window>

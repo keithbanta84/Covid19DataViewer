@@ -1,0 +1,36 @@
+﻿<Window x:Class="CovidDataViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CovidDataViewer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <TextBlock Text="Drag and drop .csv files from the csse_covid_19_daily_reports folder into the box below, then click Read Files."/>
+            <TextBlock Text="Select a data entry and click ViewLocationDetails to see the history of that location."/>
+            <TextBlock Text="You can change the scale of the history bars using the BarScale option."/>
+
+        </StackPanel>
+
+
+
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <ListView x:Name="TextBox_Files" ItemsSource="{Binding FileNames}" Width="800" Height="100" AllowDrop="True" PreviewDragOver="ListView_Files_PreviewDragOver" PreviewDrop="ListView_Files_PreviewDrop"/>
+                <Button x:Name="Button_ReadFiles" Content="Read Files" Click="Button_ReadFiles_Click"/>
+                <Button x:Name="Button_OpenLocationWindow" Content="ViewLocationDetails" Click="Button_OpenLocationWindow_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid SelectionMode="Single" x:Name="DataGrid_LocationData" Grid.Row="2" ItemsSource="{Binding LocationData}"/>
+
+
+    </Grid>
+</Window>
